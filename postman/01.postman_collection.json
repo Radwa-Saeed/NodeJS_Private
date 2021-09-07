@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "315c2fd9-6619-4db5-ad70-757a6b2d0606",
+		"name": "01",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "getallusers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/getallusers",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getallusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adduser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Sara\",\r\n    \"email\":\"Sara@gmail.com\",\r\n    \"password\":\"Sara1234\",\r\n    \"age\":\"22\",\r\n    \"location\":\"sara@location\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/adduser",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"adduser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateuser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Hala\",\r\n    \"email\":\"Hala@gmail.com\",\r\n    \"password\":\"Hala1234\",\r\n    \"age\":\"32\",\r\n    \"location\":\"hala@location\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/updateuser/6135c467034b15711b03f02e",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"updateuser",
+								"6135c467034b15711b03f02e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteuser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/deleteuser/6135c4567ede2bbafc305193",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"deleteuser",
+								"6135c4567ede2bbafc305193"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getuser_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/getuser-id/6135c467034b15711b03f02e",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getuser-id",
+								"6135c467034b15711b03f02e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getuser_name&email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/getuser-nameemail/Hala/Hala@gmail.com",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getuser-nameemail",
+								"Hala",
+								"Hala@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getuser_name&email Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Hala\",\r\n    \"email\":\"Hala@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/getuser-nameemail",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getuser-nameemail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getusers_age>30",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getusers_age<30",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getusers_age<=30",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blogs",
+			"item": [
+				{
+					"name": "getallblogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "addblog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "updateblog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "deleteallblogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getblog_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getblog_title&content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getblogs_createdby",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getblogs_createdtoday",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "getblogs_createdyesterday",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
