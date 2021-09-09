@@ -12,8 +12,9 @@ module.exports=(schema)=>{
             return;
         }
         else{
-            res.json({message:"VALIDATION SUCCESS"})
+            //res.json({message:"VALIDATION SUCCESS"})
+            next();
         }
-        next();
-    }
+    };
+    
 }

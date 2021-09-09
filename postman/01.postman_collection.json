@@ -33,7 +33,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Sara\",\r\n    \"email\":\"Sara@gmail.com\",\r\n    \"password\":\"Sara1234\",\r\n    \"age\":\"22\",\r\n    \"location\":\"sara@location\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Radwa\",\r\n    \"email\":\"Radwa@gmail.com\",\r\n    \"password\":\"\",\r\n    \"age\":\"22\",\r\n    \"location\":\"sara@location\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,15 +125,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/getuser-nameemail/Hala/Hala@gmail.com",
+							"raw": "localhost:5000/getuser-name&email/a/Radwa@gmail.com",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"getuser-nameemail",
-								"Hala",
-								"Hala@gmail.com"
+								"getuser-name&email",
+								"a",
+								"Radwa@gmail.com"
 							]
 						}
 					},
@@ -146,7 +146,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Hala\",\r\n    \"email\":\"Hala@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Radwa\",\r\n    \"email\":\"Hala@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -171,7 +171,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getusers-gt30",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getusers-gt30"
+							]
+						}
 					},
 					"response": []
 				},
@@ -189,7 +198,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getusers-lte30",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getusers-lte30"
+							]
+						}
 					},
 					"response": []
 				}
@@ -210,18 +228,55 @@
 				{
 					"name": "addblog",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"blog5\",\r\n    \"content\":\"blog5_content\",\r\n    \"createdby\":\"613986f5db5e5f95ecfb02cb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/addblog",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"addblog"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "updateblog",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"blogxxx\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/updateblog/61398fb9944e36ac74b6dd7b",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"updateblog",
+								"61398fb9944e36ac74b6dd7b"
+							]
+						}
 					},
 					"response": []
 				},
@@ -230,7 +285,34 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/deleteallblogs",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"deleteallblogs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "return_deletedblogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/returnblogs",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"returnblogs"
+							]
+						}
 					},
 					"response": []
 				},
@@ -239,7 +321,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getblog-id/61398f133469f43c4720447e",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getblog-id",
+								"61398f133469f43c4720447e"
+							]
+						}
 					},
 					"response": []
 				},
@@ -255,9 +347,27 @@
 				{
 					"name": "getblogs_createdby",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Ali\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/getblog-user",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getblog-user"
+							]
+						}
 					},
 					"response": []
 				},

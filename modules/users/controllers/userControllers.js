@@ -55,19 +55,46 @@ const getuser_id =async(req,res)=>{
 }
 
 const getuser_nameandemail = async (req,res)=>{
-    const {getname,getemail}=req.params
+    const {getname,getemail}=req.params;
     try {
-        const user = await User.find({name:new RegExp(getname.toLowerCase()),email:getemail },{isDeleted:false}) 
+        const user = await User.find({name:new RegExp(getname.toLowerCase()),email:getemail,isDeleted:false}) 
         res.json({message:"FOUND SUCCESS",user})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
 }
 const getuserbynameandemail = async (req,res)=>{
-    const {getname,getemail}=req.body
+    const {name,email}=req.body
     try {
-        const user = await User.find({$or:[{name:getname},{email:getemail}]},{isDeleted:false}) 
+        const user = await User.find({$or:[{name},{email}]},{isDeleted:false}) 
         res.json({message:"FOUND SUCCESS",user})
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
+    }
+}
+
+const getuser_gt30 = async(req,res)=>{
+    try {
+        const users = await User.find({age:{$gt:30},isDeleted:false})
+        res.json({message:"FOUND SUCCESS",users})
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
+    }
+}
+
+const getuser_lt30 = async(req,res)=>{
+    try {
+        const users = await User.find({age:{$lt:30},isDeleted:false})
+        res.json({message:"FOUND SUCCESS",users})
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
+    }
+}
+
+const getuser_lte30 = async(req,res)=>{
+    try {
+        const users = await User.find({age:{$lte:30},isDeleted:false})
+        res.json({message:"FOUND SUCCESS",users})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
@@ -75,5 +102,5 @@ const getuserbynameandemail = async (req,res)=>{
 
 module.exports={
     getallusers,adduser,deleteuser,updateuser,getuser_id,getuser_nameandemail,
-    getuserbynameandemail
+    getuserbynameandemail,getuser_gt30,getuser_lt30,getuser_lte30
 }
