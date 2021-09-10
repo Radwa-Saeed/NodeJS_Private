@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "315c2fd9-6619-4db5-ad70-757a6b2d0606",
+		"_postman_id": "33136ac5-1b2a-48b8-aa9b-40101ef20ae4",
 		"name": "01",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -87,14 +87,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/deleteuser/6135c4567ede2bbafc305193",
+							"raw": "localhost:5000/deleteuser/613a8d46ff1979ebf9550282",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"deleteuser",
-								"6135c4567ede2bbafc305193"
+								"613a8d46ff1979ebf9550282"
 							]
 						}
 					},
@@ -106,14 +106,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/getuser-id/6135c467034b15711b03f02e",
+							"raw": "localhost:5000/getuser-id/613a8d46ff1979ebf9550282",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"getuser-id",
-								"6135c467034b15711b03f02e"
+								"613a8d46ff1979ebf9550282"
 							]
 						}
 					},
@@ -125,7 +125,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/getuser-name&email/a/Radwa@gmail.com",
+							"raw": "localhost:5000/getuser-name&email/a/Sara@gmail.com",
 							"host": [
 								"localhost"
 							],
@@ -133,7 +133,7 @@
 							"path": [
 								"getuser-name&email",
 								"a",
-								"Radwa@gmail.com"
+								"Sara@gmail.com"
 							]
 						}
 					},
@@ -189,7 +189,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getusers-lt30",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getusers-lt30"
+							]
+						}
 					},
 					"response": []
 				},
@@ -221,7 +230,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getallblogs",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getallblogs"
+							]
+						}
 					},
 					"response": []
 				},
@@ -232,7 +250,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"blog5\",\r\n    \"content\":\"blog5_content\",\r\n    \"createdby\":\"613986f5db5e5f95ecfb02cb\"\r\n}",
+							"raw": "{\r\n    \"title\":\"blog3\",\r\n    \"content\":\"blog3_content\",\r\n    \"createdby\":\"613a8d7dff1979ebf9550287\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,12 +358,50 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getblog-title&content/blog5/blog5_content",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getblog-title&content",
+								"blog5",
+								"blog5_content"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "getblogs_createdby",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"createdby\":\"613986f5db5e5f95ecfb02cb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/getblog-user",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getblog-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getblogs_createdby Copy",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -376,7 +432,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getallblogs-today",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getallblogs-today"
+							]
+						}
 					},
 					"response": []
 				},
@@ -385,7 +450,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/getallblogs-yesterday",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"getallblogs-yesterday"
+							]
+						}
 					},
 					"response": []
 				}

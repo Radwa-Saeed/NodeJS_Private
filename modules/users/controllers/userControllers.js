@@ -26,7 +26,7 @@ const adduser = async(req,res)=>{
 const deleteuser = async(req,res)=>{
     const {_id}=req.params;
     try {
-        await User.updateOne({_id},{isDeleted:true})
+        await User.findByIdAndUpdate({_id},{isDeleted:true})
         res.json({message:"DELETED SUCCESS"})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
@@ -47,7 +47,8 @@ const updateuser = async (req,res)=>{
 const getuser_id =async(req,res)=>{
     const {_id}=req.params
     try {
-        const user = await User.findById({_id},{isDeleted:false}) 
+        //const user = await User.findById({_id},{isDeleted:false}) 
+        const user = await User.find({_id,isDeleted:false}) 
         res.json({message:"FOUND SUCCESS",user})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
