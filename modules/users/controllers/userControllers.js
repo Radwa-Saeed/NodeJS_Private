@@ -1,5 +1,6 @@
 const User = require("../model/userModel")
 const {StatusCodes}=require("http-status-codes")
+const bcrypt = require("bcrypt")
 
 const getallusers = async(req,res)=>{
     try {
@@ -11,15 +12,22 @@ const getallusers = async(req,res)=>{
     
 }
 const adduser = async(req,res)=>{
-    let {name,email,password,age,location}=req.body
+    let {name,email,password,age,location,role}=req.body
     try {
         //await User.insertMany({name,email,password,age,location})
         //res.json({message:"ADDED SUCCESS"})
-        const newuser= new User({name,email,password,age,location})
+        // bcrypt.hash(password,7,async function(err,hashed){
+        //     if (err) throw err;
+        //     else {
+        //         const newuser= new User({name,email,password:hashed,age,location})
+        //         const user = await newuser.save()
+        //         res.status(StatusCodes.CREATED).json({message:"ADDED SUCCESS",user})}
+        //     })
+        const newuser= new User({name,email,password,age,location,role})
         const user = await newuser.save()
         res.status(StatusCodes.CREATED).json({message:"ADDED SUCCESS",user})
-    } catch (error) {
-        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
+    } catch (err) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
     }
 }
 
