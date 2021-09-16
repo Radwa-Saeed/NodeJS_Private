@@ -1,16 +1,27 @@
 const User = require("../model/userModel")
 const {StatusCodes}=require("http-status-codes")
 const bcrypt = require("bcrypt")
+const jwt = require('jsonwebtoken');
 
+// const getallusers = async(req,res)=>{
+//     try {
+//         // let data=await User.find({isDeleted:false})
+//         let data=await User.find({isDeleted:false}).select("-password") // so as not to get the password field 
+//         res.json({message:"ALL USERS",data})
+//     } catch (error) {
+//         res.json({message:"ERROR",error})
+//     }
+// }
 const getallusers = async(req,res)=>{
-    try {
-        let data=await User.find({isDeleted:false})
-        res.json({message:"ALL USERS",data})
-    } catch (error) {
-        res.json({message:"ERROR",error})
+    console.log(req.user)
+    if (req.user.role == 'admin'){
+        const users = await User.find({isDeleted:false}).select('-password')
+        res.json({message:"ALL USERS",users})
+    }else {
+        res.status(StatusCodes.UNAUTHORIZED).json({message:"NOT ALLOWED"})
     }
-    
 }
+
 const adduser = async(req,res)=>{
     let {name,email,password,age,location,role}=req.body
     try {
@@ -28,6 +39,49 @@ const adduser = async(req,res)=>{
         res.status(StatusCodes.CREATED).json({message:"ADDED SUCCESS",user})
     } catch (err) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
+    }
+}
+
+const registeration = async(req,res)=>{
+    let {name,email,password,age,location,role}=req.body
+    try {
+        const found = await User.findOne({email,isDeleted:false});
+        if (found){
+            res.status(StatusCodes.BAD_REQUEST).json({message:"ٌREGISTERATION FAILD... THIS EMAIL IS ALREADY EXIST"})
+        }
+        else{
+            const newuser= new User({name,email,password,age,location,role})
+            const user = await newuser.save()
+            res.status(StatusCodes.CREATED).json({message:"REGISTERED SUCCESS",user})
+        }
+    } catch (err) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
+    }
+}
+//   Route @
+const sign_in =async(req,res)=>{
+    const {email,password}=req.body
+    try {
+        const found = await User.findOne({email,isDeleted:false})
+        if (!found){
+            res.status(StatusCodes.BAD_REQUEST).json({message:"THIS EMAIL IS INVALID"})
+        }
+        else{
+            const match = await bcrypt.compare(password, found.password);
+            if (match){
+                const token = jwt.sign({_id:found._id,role:found.role}, 'shhhhh');
+                res.json({message:"SIGNED IN SUCCESS",token,user:{
+                    id: found._id,
+                    name: found.name,
+                    email:found.email
+                }})
+            }
+            else{
+                res.status(StatusCodes.BAD_REQUEST).json({message:"WRONG PASSWORD"})
+            }
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
 }
 
@@ -110,6 +164,6 @@ const getuser_lte30 = async(req,res)=>{
 }
 
 module.exports={
-    getallusers,adduser,deleteuser,updateuser,getuser_id,getuser_nameandemail,
+    getallusers,adduser,registeration,sign_in,deleteuser,updateuser,getuser_id,getuser_nameandemail,
     getuserbynameandemail,getuser_gt30,getuser_lt30,getuser_lte30
 }

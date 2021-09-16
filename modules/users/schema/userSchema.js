@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     password:{type:String,required:true},
     age:{type:Number,required:true},
     location:{type:String,required:true},
-    role:{type:Number},
+    role:{type:String},
     verified:{type:Boolean,default:false},
     isDeleted:{type:Boolean,default:false}
 },
@@ -19,5 +19,12 @@ userSchema.pre('save',async function(next) {
     this.password= await bcrypt.hash(this.password,7) // bcrypt https://www.npmjs.com/package/bcrypt
     next();
   });
+
+userSchema.pre("find",function(){
+    console.log("PRE...",new Date())
+});
+userSchema.post("find",function(){
+    console.log("POST...",new Date())
+});
 
 module.exports=userSchema
