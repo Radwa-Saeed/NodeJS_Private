@@ -4,22 +4,24 @@ const moment = require("moment");
 
 const getallblogs = async(req,res)=>{
     try {
-        if (req.user.role=="superadmin" || req.user.role == "admin" ){
-            let data = await Blog.find({isDeleted:false}).populate('createdby') //.populate to see the object of the user created the blog
-            res.json({message:'ALL BLOGS',data})
+        let {page,size}=req.query;
+        if(!page){page=1}
+        if(!size){size=5}
+        const limit = parseInt(size);
+        const skip = (page-1)*size;
+        const data = await Blog.find({isDeleted:false}).limit(limit).skip(skip) 
+        const allblogs = await Blog.count();
+        const allpages = Math.ceil(allblogs/limit);
+        res.status(StatusCodes.OK).json({message:`PAGE: ${page} OF ${allpages} BLOGS:${size} OF ${allblogs}`,data})
         }
-        else{
-            //console.log('here')
-            let data = await Blog.find({isDeleted:false}) //.populate to see the object of the user created the blog
-            res.json({message:'ALL BLOGS',data})
-        }
-    } catch (error) {
+    catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
 }
 
 const addblog = async (req,res)=>{
-    let {title,content,createdby}=req.body
+    const {title,content}=req.body
+    const createdby = req.user._id
     try {
         await Blog.insertMany({title,content,createdby})
         res.json({message:"ADDED SUCCESS"})

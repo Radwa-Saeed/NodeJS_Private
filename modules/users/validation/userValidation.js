@@ -7,7 +7,7 @@ module.exports={
                 password:Joi.string().required(),
                 age:Joi.number().required().min(20).max(60).messages({"number.min":"SORRY...MIN AGE IS 20","number.max":"SORRY...MAX AGE IS 60"}),
                 location:Joi.string().required(),
-                role:Joi.string().required()
+                role:Joi.string()
             })
         },
     signinSchemaValidation:{

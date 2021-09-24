@@ -4,7 +4,6 @@ module.exports={
         body:Joi.object().required().keys({
             title:Joi.string().required(),
             content:Joi.string().required(),
-            createdby:Joi.required(),
         })
     }
 }

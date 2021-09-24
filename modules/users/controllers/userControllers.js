@@ -73,7 +73,8 @@ const sign_in =async(req,res)=>{
                 res.json({message:"SIGNED IN SUCCESS",token,user:{
                     id: found._id,
                     name: found.name,
-                    email:found.email
+                    email:found.email,
+                    role:found.role
                 }})
             }
             else{
