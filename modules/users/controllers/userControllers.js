@@ -3,24 +3,24 @@ const {StatusCodes}=require("http-status-codes")
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken');
 
-// const getallusers = async(req,res)=>{
-//     try {
-//         // let data=await User.find({isDeleted:false})
-//         let data=await User.find({isDeleted:false}).select("-password") // so as not to get the password field 
-//         res.json({message:"ALL USERS",data})
-//     } catch (error) {
-//         res.json({message:"ERROR",error})
-//     }
-// }
 const getallusers = async(req,res)=>{
-    console.log(req.user)
-    if (req.user.role == 'admin'){
-        const users = await User.find({isDeleted:false}).select('-password')
-        res.json({message:"ALL USERS",users})
-    }else {
-        res.status(StatusCodes.UNAUTHORIZED).json({message:"NOT ALLOWED"})
+    try {
+        // let data=await User.find({isDeleted:false})
+        let data=await User.find({isDeleted:false}).select("-password") // so as not to get the password field 
+        res.json({message:"ALL USERS",data})
+    } catch (error) {
+        res.json({message:"ERROR",error})
     }
 }
+// const getallusers = async(req,res)=>{
+//     console.log(req.user)
+//     if (req.user.role == 'admin'){
+//         const users = await User.find({isDeleted:false}).select('-password')
+//         res.json({message:"ALL USERS",users})
+//     }else {
+//         res.status(StatusCodes.UNAUTHORIZED).json({message:"NOT ALLOWED"})
+//     }
+// }
 
 const adduser = async(req,res)=>{
     let {name,email,password,age,location,role}=req.body
@@ -58,7 +58,7 @@ const registeration = async(req,res)=>{
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
     }
 }
-//   Route @
+
 const sign_in =async(req,res)=>{
     const {email,password}=req.body
     try {
@@ -69,7 +69,7 @@ const sign_in =async(req,res)=>{
         else{
             const match = await bcrypt.compare(password, found.password);
             if (match){
-                const token = jwt.sign({_id:found._id,role:found.role}, 'shhhhh');
+                const token = jwt.sign({_id:found._id,role:found.role}, process.env.SECRET_KEY);
                 res.json({message:"SIGNED IN SUCCESS",token,user:{
                     id: found._id,
                     name: found.name,

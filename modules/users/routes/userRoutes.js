@@ -2,10 +2,10 @@ const reqValidation = require("../../../commonValidation/reqValidation")
 const { adduserSchemaValidation, updateuserSchemaValidation, signinSchemaValidation } = require("../validation/userValidation")
 const { getallusers, adduser, deleteuser, updateuser, getuser_id, getuser_nameandemail, getuserbynameandemail, getuser_gt30, getuser_lt30, getuser_lte30, registeration, sign_in } = require("../controllers/userControllers")
 const isAuthorized = require("../../../commonValidation/isAuthorized")
-
+const {GET_ALL_USERS}=require("../endPoints")
 const router=require("express").Router()
 
-router.get("/getallusers",isAuthorized(),getallusers) // localhost:5000/getallusers
+router.get("/getallusers",isAuthorized(GET_ALL_USERS),getallusers) // localhost:5000/getallusers
 router.post("/adduser",reqValidation(adduserSchemaValidation),adduser)  // localhost:5000/adduser
 router.post("/registeration",reqValidation(adduserSchemaValidation),registeration)  // localhost:5000/registeration
 router.post("/signin",reqValidation(signinSchemaValidation),sign_in)  // localhost:5000/signin

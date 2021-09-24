@@ -20,11 +20,11 @@ userSchema.pre('save',async function(next) {
     next();
   });
 
-userSchema.pre("find",function(){
-    console.log("PRE...",new Date())
-});
-userSchema.post("find",function(){
-    console.log("POST...",new Date())
-});
+// userSchema.pre("find",function(){
+//     console.log("PRE...",new Date())
+// });
+// userSchema.post("find",function(){
+//     console.log("POST...",new Date())
+// });
 
 module.exports=userSchema

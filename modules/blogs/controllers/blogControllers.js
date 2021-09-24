@@ -4,10 +4,17 @@ const moment = require("moment");
 
 const getallblogs = async(req,res)=>{
     try {
-        let data = await Blog.find({isDeleted:false}).populate('createdby') //.populate to see the object of the user created the blog
-        res.json({message:'ALL BLOGS',data})
+        if (req.user.role=="superadmin" || req.user.role == "admin" ){
+            let data = await Blog.find({isDeleted:false}).populate('createdby') //.populate to see the object of the user created the blog
+            res.json({message:'ALL BLOGS',data})
+        }
+        else{
+            //console.log('here')
+            let data = await Blog.find({isDeleted:false}) //.populate to see the object of the user created the blog
+            res.json({message:'ALL BLOGS',data})
+        }
     } catch (error) {
-        res.json({message:"ERROR",error})
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
 }
 
@@ -32,10 +39,19 @@ const updateblog = async(req,res)=>{
     }
 }
 
-const deleteallblogs = async(req,res)=>{
+// const deleteallblogs = async(req,res)=>{
+//     try {
+//         await Blog.updateMany({isDeleted:true})
+//         res.json({message:"ALL BLOGS DELETED SUCCESS"})
+//     } catch (error) {
+//         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
+//     }
+// }
+const deleteblog = async(req,res)=>{
+    const {_id}=req.body
     try {
-        await Blog.updateMany({isDeleted:true})
-        res.json({message:"ALL BLOGS DELETED SUCCESS"})
+        await Blog.updateOne({_id},{isDeleted:true})
+        res.json({message:`BLOG WITH ID ${_id} DELETED SUCCESS`})
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",error})
     }
@@ -127,6 +143,6 @@ const getblog_yesterday = async (req,res)=>{
 }
 
 module.exports={
-    getallblogs,addblog,updateblog,deleteallblogs,return_deletedblogs,getblog_id,
+    getallblogs,addblog,updateblog,deleteblog,return_deletedblogs,getblog_id,
     getblog_titlecontent,getblog_user,getblog_today,getblog_yesterday
 }
