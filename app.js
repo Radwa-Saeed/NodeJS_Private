@@ -9,6 +9,7 @@ const port = process.env.PORT
 app.use(express.json())
 app.use(userRouter)
 app.use(blogRouter)
+app.use("/images",express.static('images'))
 connection();
 app.get('/', (req, res) => res.send('Hello World!')) //localhost:3000
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

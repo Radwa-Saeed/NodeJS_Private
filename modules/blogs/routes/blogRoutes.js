@@ -3,11 +3,20 @@ const reqValidation = require("../../../commonValidation/reqValidation");
 const { getallblogs, addblog, updateblog, return_deletedblogs, getblog_id, getblog_titlecontent, getblog_user, getblog_today, getblog_yesterday, deleteblog } = require("../controllers/blogControllers");
 const { GET_ALLBLOGS, ADD_BLOG } = require("../endPoints");
 const { blogSchemaValidation } = require("../validation/blogValidation");
-
 const router = require("express").Router();
 
+const multer = require("multer")
+const storage = multer.diskStorage({
+    destination:(req,file,cb)=>cb(null,'./images/blogImages/'),
+    // filename:(req,file,cb)=>cb(null,new Date().toISOString() + file.originalname)
+    filename:(req,file,cb)=>cb(null,new Date().toISOString().replace(/:/g, '-') + file.originalname) //to replase the date to name the file
+})
+// const blogImages = multer({dest:"blogImages/"}); 
+const blogImages = multer({storage}); 
+
 router.get("/getallblogs",getallblogs)  // localhost:5000/getallblogs
-router.post("/addblog",isAuthorized(ADD_BLOG),reqValidation(blogSchemaValidation),addblog) // localhost:5000/addblog
+// router.post("/addblog",isAuthorized(ADD_BLOG),reqValidation(blogSchemaValidation),addblog) // localhost:5000/addblog
+router.post("/addblog",isAuthorized(ADD_BLOG),blogImages.single("blogimage"),addblog) // localhost:5000/addblog
 router.put("/updateblog/:_id",updateblog)  // localhost:5000/updateblog
 router.get("/deleteallblogs",deleteblog)  // localhost:5000/deleteallblogs
 router.get("/returnblogs",return_deletedblogs)  // localhost:5000/returnblogs

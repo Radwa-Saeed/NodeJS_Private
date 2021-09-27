@@ -20,10 +20,13 @@ const getallblogs = async(req,res)=>{
 }
 
 const addblog = async (req,res)=>{
-    const {title,content}=req.body
+    const {title,content,blogimage}=req.body
+    console.log(req.file)
     const createdby = req.user._id
     try {
-        await Blog.insertMany({title,content,createdby})
+        //await Blog.insertMany({title,content,createdby})
+        const newblog = new Blog({title,content,createdby,blogimage:`http://localhost:${process.env.PORT}/${req.file.path}`})
+        await newblog.save()
         res.json({message:"ADDED SUCCESS"})
     } catch (error) {
         res.json({message:"ERROR",error})

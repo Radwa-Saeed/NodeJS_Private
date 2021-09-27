@@ -3,6 +3,7 @@ const blogSchema = new mongoose.Schema({
     title :{type:String,required:true},
     content :{type:String,required:true},
     createdby :{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}, //to link between the two collections
+    blogimage:{type:String},
     isDeleted :{type:Boolean,default:false},
 },
 {
