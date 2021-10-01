@@ -2,6 +2,7 @@ const User = require("../model/userModel")
 const {StatusCodes}=require("http-status-codes")
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken');
+const transporter = require("./emailSender");
 
 const getallusers = async(req,res)=>{
     try {
@@ -52,12 +53,40 @@ const registeration = async(req,res)=>{
         else{
             const newuser= new User({name,email,password,age,location,role})
             const user = await newuser.save()
-            res.status(StatusCodes.CREATED).json({message:"REGISTERED SUCCESS",user})
+            // remember to enable the access of less secure app on the browser
+            const token = jwt.sign({email},process.env.SECRET_KEY)
+            const info =await transporter.sendMail({
+                from:'"Radwa Saeed 👻" ',
+                to:email,
+                subject:'Registeration',
+                text:'Plain Text',
+                html:`<div>
+                    <p>Welcome ${name} to our website</p>
+                    <b>FOLLOW THIS LINK FOR REGISTERATION... </b>
+                    <a href ="http://localhost:5000/verification/${token}" target="_blank"> Click Here </a>`
+            })
+            res.status(StatusCodes.CREATED).json({message:"CHECK YOUR EMAIL FOR REGISTERATION"})
         }
     } catch (err) {
         res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
     }
 }
+ const verification = async (req,res)=>{
+     const decoded = jwt.verify(req.params.token,process.env.SECRET_KEY)
+     try {
+         const found = await User.findOne({email:decoded.email})
+         if (!found){
+            res.status(StatusCodes.BAD_REQUEST).json({message:"INVALID EMAIL"})
+        }
+        else{
+            await User.findOneAndUpdate({email:decoded.email},{verified:true})            
+            res.redirect('http://localhost:5000') //to redirect the url
+            //res.status(StatusCodes.OK).json({message:"REGISTERED SUCCESS"})
+         }
+     } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({message:"ERROR",err})
+     }
+ }
 
 const sign_in =async(req,res)=>{
     const {email,password}=req.body
@@ -164,7 +193,24 @@ const getuser_lte30 = async(req,res)=>{
     }
 }
 
+
+const sender = async (req,res)=>{
+    try {
+        const info = await transporter.sendMail({
+            from:'"Fred Foo 👻" <foo@example.com>',
+            to:'radwa.saedm@gmail.com',
+            subject:'Registeration ✔',
+            text:'FOLLOW THIS LINK FOR REGISTERATION',
+            html:"<b> Registered Success</b>",
+            })
+            res.status(StatusCodes.CREATED).json({message:"SENT SUCCESS"})
+        
+    } catch (error) {
+        res.json({message:"ERROR",error})   
+    }
+}
 module.exports={
-    getallusers,adduser,registeration,sign_in,deleteuser,updateuser,getuser_id,getuser_nameandemail,
-    getuserbynameandemail,getuser_gt30,getuser_lt30,getuser_lte30
+    getallusers,adduser,registeration,verification,sign_in,deleteuser,updateuser,getuser_id,getuser_nameandemail,
+    getuserbynameandemail,getuser_gt30,getuser_lt30,getuser_lte30,
+    sender
 }
