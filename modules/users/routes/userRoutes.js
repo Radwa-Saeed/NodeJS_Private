@@ -5,7 +5,8 @@ const isAuthorized = require("../../../commonValidation/isAuthorized")
 const {GET_ALL_USERS}=require("../endPoints")
 const router=require("express").Router()
 
-router.get("/getallusers",isAuthorized(GET_ALL_USERS),getallusers) // localhost:5000/getallusers
+// router.get("/getallusers",isAuthorized(GET_ALL_USERS),getallusers) // localhost:5000/getallusers
+router.get("/getallusers",getallusers) // localhost:5000/getallusers
 router.post("/adduser",reqValidation(adduserSchemaValidation),adduser)  // localhost:5000/adduser
 router.post("/registeration",reqValidation(adduserSchemaValidation),registeration)  // localhost:5000/registeration
 router.get("/verification/:token",verification)
